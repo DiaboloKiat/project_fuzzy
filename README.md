@@ -11,7 +11,7 @@ $ cd project_fuzzy
 $ source build.sh
 ```
 
-## run docker
+## Run docker
 ```
 $ source docker_run.sh
 ```

@@ -3,18 +3,10 @@
 # Typical usage: ./join.bash subt
 #
 
-BASH_OPTION=bash
-
-IMG=diabolokiat/project_fuzzy
+IMG=diabolokiat/project_fuzzy:gz9_melodic
 
 xhost +
-containerid=$(docker ps -aqf "ancestor=${IMG}") && echo $containerid
-docker exec -it \
-    --privileged \
-    -e ROS_MASTER_URI=$ROS_MASTER_URI \
-    -e ROS_IP=$ROS_IP \
-    -e DISPLAY=${DISPLAY} \
-    -e LINES="$(tput lines)" \
-    ${containerid} \
-    $BASH_OPTION
+containerid=$(docker ps -aqf "ancestor=${IMG}")&& echo $containerid
+docker exec --privileged -e DISPLAY=${DISPLAY} -e LINES="$(tput lines)" -it ${containerid} bash
 xhost -
+

@@ -201,6 +201,26 @@ RUN wget https://github.com/IntelRealSense/librealsense/archive/v${LIBREALSENSE_
     make install && \
     rm -rf librealsense-${LIBREALSENSE_VERSION}
 
+################################### SUBT SOURCE #####################################
+ARG username
+ARG password
+
+RUN git clone https://${username}:${password}@github.com/ARG-NCTU/subt-gazebo /subt_ws \
+    && cd /subt_ws \
+    && mkdir -p ${HOME}/catkin_ws/src \
+    && apt-get -o Acquire::ForceIPv4=true update \
+    && cp -R /subt_ws ${HOME}/catkin_ws/src/. \
+    && cd ${HOME}/catkin_ws \
+    && wget https://s3.amazonaws.com/osrf-distributions/subt_robot_examples/releases/subt_robot_examples_latest.tgz \
+    && tar xvf subt_robot_examples_latest.tgz \
+    && /bin/bash -c "source /opt/ros/${ROS_DISTRO}/setup.bash && rosdep init" \
+    && /bin/bash -c "source /opt/ros/${ROS_DISTRO}/setup.bash && rosdep update && rosdep install --as-root apt:false --from-paths src --ignore-src -r -y" \
+    && rm -rf /var/lib/apt/lists/* \
+    && /bin/bash -c "source /opt/ros/${ROS_DISTRO}/setup.bash && catkin_make install" \
+    && rm -fr /subt_ws 
+
+RUN echo "source ~/catkin_ws/install/setup.bash" >> ${HOME}/.bashrc
+
 ##################################### TAIL #####################################
 
 RUN chown -R ${NB_UID} ${HOME}/

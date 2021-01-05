@@ -1,0 +1,2 @@
+control:duckiepond_vehicle:hrvo:rl_navigation:vrx/usv_gazebo_plugins:vrx/vrx_gazebo:vrx/wamv_description:vrx/wamv_gazebo:vrx/wave_gazebo:vrx/wave_gazebo_plugins
+-DCATKIN_DEVEL_PREFIX=/home/diabolokiat/project_fuzzy/catkin_ws/devel -DCMAKE_INSTALL_PREFIX=/home/diabolokiat/project_fuzzy/catkin_ws/install -G Unix Makefiles
