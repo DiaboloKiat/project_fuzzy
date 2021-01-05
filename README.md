@@ -27,6 +27,7 @@ $ source docker_join.sh
 ## Open procman in docker
 ```
 $ cd ~/project_fuzzy
+$ source catkin_make.sh
 $ source environment.sh
 $ source start_vrx.sh
 ```

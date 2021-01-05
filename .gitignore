@@ -1,0 +1,7 @@
+# ROS related
+devel/
+build/
+video/
+.vscode
+.catkin_workspace
+
