@@ -14,12 +14,12 @@ cmd "02_gazebo_multi" {
     exec = "roslaunch vrx_gazebo duckieboat_multi.launch";
     host = "localhost";
 }
-cmd "06_single_hrvo" {
+cmd "04_single_hrvo" {
     exec = "roslaunch hrvo single_hrvo.launch";
     host = "localhost";
 }
 
-cmd "06_multi_hrvo" {
+cmd "04_multi_hrvo" {
     exec = "roslaunch hrvo multi_hrvo.launch";
     host = "localhost";
 }

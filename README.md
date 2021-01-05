@@ -8,22 +8,25 @@ $ cd project_fuzzy
 
 ## Build docker
 ```
-$ source build.sh
+$ cd ~/project_fuzzy/Docker
+$ source build.sh <username> <password>
 ```
 
 ## Run docker
 ```
+$ cd ~/project_fuzzy
 $ source docker_run.sh
 ```
 
 ## Open another docker terminal
 ```
+$ cd ~/project_fuzzy
 $ source docker_join.sh
 ```
 
 ## Open procman in docker
 ```
-$ cd project_fuzzy
+$ cd ~/project_fuzzy
 $ source environment.sh
 $ source start_vrx.sh
 ```
@@ -37,8 +40,9 @@ $ source start_vrx.sh
 | Ctrl + A | Select All |
 
 ## Multi-boat HRVO
-- start 02_gazebo_multi
-- start 06_multi_hrvo
+- Start 01_core
+- Start 02_gazebo_multi
+- Start 04_multi_hrvo
 
 
 
