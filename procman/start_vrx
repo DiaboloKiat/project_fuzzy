@@ -1,0 +1,29 @@
+cmd "01_core" {
+    exec = "roscore";
+    host = "localhost";
+}
+cmd "03_teleop" {
+    exec = "roslaunch rl_navigation teleop.launch";
+    host = "localhost";
+}
+cmd "02_gazebo_single" {
+    exec = "roslaunch vrx_gazebo duckieboat.launch";
+    host = "localhost";
+}
+cmd "02_gazebo_multi" {
+    exec = "roslaunch vrx_gazebo duckieboat_multi.launch";
+    host = "localhost";
+}
+cmd "06_single_hrvo" {
+    exec = "roslaunch hrvo single_hrvo.launch";
+    host = "localhost";
+}
+
+cmd "06_multi_hrvo" {
+    exec = "roslaunch hrvo multi_hrvo.launch";
+    host = "localhost";
+}
+
+script "start_vrx" {
+    start cmd "01_core" wait "running";
+}
