@@ -5,6 +5,26 @@ ENV LANG C.UTF-8
 ENV LC_ALL C.UTF-8
 ENV ROS_DISTRO melodic
 
+###################################### user #####################################
+
+ENV SHELL=/bin/bash \
+    USER=DK \
+    UID=1000 \
+    LANG=en_US.UTF-8 \
+    LANGUAGE=en_US.UTF-8
+
+ENV HOME=/home/${USER}
+
+RUN adduser --disabled-password \
+    --gecos "Default user" \
+    --uid ${UID} \
+    ${USER} 
+
+RUN echo "root:root" | chpasswd
+RUN echo "${USER}:111111" | chpasswd
+
+###################################### basic tools #####################################
+
 RUN apt-get -o Acquire::ForceIPv4=true update && apt-get -yq dist-upgrade \
     && apt-get -o Acquire::ForceIPv4=true install -yq --no-install-recommends \
     locales \
@@ -43,23 +63,6 @@ RUN apt-get -o Acquire::ForceIPv4=true update && apt-get -yq dist-upgrade \
     ruby-full \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
-
-ENV SHELL=/bin/bash \
-    NB_USER=diabolokiat \
-    NB_UID=1000 \
-    LANG=en_US.UTF-8 \
-    LANGUAGE=en_US.UTF-8
-
-ENV HOME=/home/${NB_USER}
-
-RUN adduser --disabled-password \
-    --gecos "Default user" \
-    --uid ${NB_UID} \
-    ${NB_USER} 
-
-RUN echo "root:root" | chpasswd
-RUN echo "${NB_USER}:111111" | chpasswd
-# EXPOSE 8888
 
 ###################################### ROS #####################################
 
@@ -203,7 +206,7 @@ RUN wget https://github.com/IntelRealSense/librealsense/archive/v${LIBREALSENSE_
 
 ##################################### TAIL #####################################
 
-RUN chown -R ${NB_UID} ${HOME}/
+RUN chown -R ${UID} ${HOME}/
 RUN echo "${NB_USER} ALL=(ALL)  ALL" > /etc/sudoers
 
 RUN echo "cd ~/project_fuzzy" >> ${HOME}/.bashrc
@@ -212,6 +215,6 @@ RUN echo "cd ~/project_fuzzy" >> ${HOME}/.bashrc
 ENV NVIDIA_VISIBLE_DEVICES=all
 ENV NVIDIA_DRIVER_CAPABILITIES=all
 
-USER ${NB_USER}
+USER ${USER}
 
 WORKDIR ${HOME}
