@@ -44,10 +44,12 @@ docker run -it \
   -e QT_X11_NO_MITSHM=1 \
   -e XAUTHORITY=$XAUTH \
   -v "$XAUTH:$XAUTH" \
-  -v "/home/$USER/project_fuzzy:/home/diabolokiat/project_fuzzy" \
+  -v "/home/$USER/project_fuzzy:/home/kiat/project_fuzzy" \
   -v "/tmp/.X11-unix:/tmp/.X11-unix" \
   -v "/etc/localtime:/etc/localtime:ro" \
   -v "/dev:/dev" \
+  -v "/var/run/docker.sock:/var/run/docker.sock" \
+  -v "/home/$USER/.bashrc:/home/kiat/.bashrc" \
   --name project_fuzzy \
   --network host \
   --rm \
