@@ -8,7 +8,7 @@ ENV ROS_DISTRO melodic
 ###################################### user #####################################
 
 ENV SHELL=/bin/bash \
-    USER=DK \
+    USER=kiat \
     UID=1000 \
     LANG=en_US.UTF-8 \
     LANGUAGE=en_US.UTF-8
@@ -29,6 +29,7 @@ RUN apt-get -o Acquire::ForceIPv4=true update && apt-get -yq dist-upgrade \
     && apt-get -o Acquire::ForceIPv4=true install -yq --no-install-recommends \
     locales \
     cmake \
+    make \
     git \
     vim \
     gedit \
@@ -67,8 +68,10 @@ RUN apt-get -o Acquire::ForceIPv4=true update && apt-get -yq dist-upgrade \
 ###################################### ROS #####################################
 
 # setup sources.list
-RUN echo "deb http://packages.ros.org/ros/ubuntu `lsb_release -sc` main" > /etc/apt/sources.list.d/ros-latest.list \
-    && echo "deb http://packages.osrfoundation.org/gazebo/ubuntu-stable `lsb_release -cs` main" > /etc/apt/sources.list.d/gazebo-stable.list
+# RUN echo "deb http://packages.ros.org/ros/ubuntu `lsb_release -sc` main" > /etc/apt/sources.list.d/ros-latest.list \
+#     && echo "deb http://packages.osrfoundation.org/gazebo/ubuntu-stable `lsb_release -cs` main" > /etc/apt/sources.list.d/gazebo-stable.list
+
+RUN sh -c 'echo "deb http://packages.ros.org/ros/ubuntu $(lsb_release -sc) main" > /etc/apt/sources.list.d/ros-latest.list'
 
 # setup keys
 RUN apt-key adv --keyserver 'hkp://keyserver.ubuntu.com:80' --recv-key C1CF6E31E6BADE8868B172B4F42ED6FBAB17C654 \
@@ -207,7 +210,7 @@ RUN wget https://github.com/IntelRealSense/librealsense/archive/v${LIBREALSENSE_
 ##################################### TAIL #####################################
 
 RUN chown -R ${UID} ${HOME}/
-RUN echo "${NB_USER} ALL=(ALL)  ALL" > /etc/sudoers
+RUN echo "${USER} ALL=(ALL)  ALL" > /etc/sudoers
 
 RUN echo "cd ~/project_fuzzy" >> ${HOME}/.bashrc
 
